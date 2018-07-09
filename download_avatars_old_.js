@@ -1,5 +1,3 @@
-// node download_avatars.js https://avatars0.githubusercontent.com/u/1615?v=4 avatars/kvirani.jpg
-
 // User-Agent: curl/7.47.0
 
 var secrets = require('./secrets.js');
@@ -10,18 +8,10 @@ var fs = require('fs');
 
 var args = process.argv.slice(2);
 
-var sourceURL = args[0] || "https://avatars0.githubusercontent.com/u/1615?v=4";
+var sourceURL = args[0] || 504;
 var filePathing = args[1] || "avatars/kvirani.jpg";
 
-
-
-
-downloadImageByURL(sourceURL, filePathing);
-
-// console.log("sourceURL" + sourceURL);
-// console.log("filePathing" + filePathing);
-
-// console.log('NOTE!!!!!!:', args);
+console.log('NOTE!!!!!!:', args);
 
 // console.log("secrets",secrets);
 
@@ -60,26 +50,25 @@ function getRepoContributors(repoOwner, repoName, cb) {
 
 // getRepoContributors("jquery", "jquery", repoItemPrinter)
 
-// getRepoContributors("jquery", "jquery", function(err, result) {
-// getRepoContributors("jquery", "jquery", function(err, result) {
-//   if(err){
-//     console.log("Errors:", err);
-//   } else if(result.message) {
-//     console.log(result.message)
-//   } else {
-//     result.forEach(function(item) {
-//       console.log(item);
-//       // let pathing = "avatars/" + item.login + ".jpeg";
-//       let pathing = filePathing;
-//       // let item_url = item.url;
-//       let item_url = sourceURL;
 
-//       downloadImageByURL(item_url, pathing);
-//       // invokde downloadImageUrl()
+getRepoContributors("jquery", "jquery", function(err, result) {
+  if(err){
+    console.log("Errors:", err);
+  } else if(result.message) {
+    console.log(result.message)
+  } else {
+    result.forEach(function(item) {
+      console.log(item);
+      let pathing = "avatars/" + item.login + ".jpeg";
+      let item_url = item.url;
+      // Create the url
+      // Create the filepage
+      downloadImageByURL(item_url, pathing);
+      // invokde downloadImageUrl()
 
-//     })
-//   }
-// });
+    })
+  }
+});
 
 
 function downloadImageByURL(url, filePath) {
@@ -110,6 +99,39 @@ function downloadImageByURL(url, filePath) {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// // require `request` and the Node `fs` (filesystem) module
+// var request = require('request');
+// var fs = require('fs');
+
+// console.log('Downloading image...');
+
+// request.get('https://sytantris.github.io/http-examples/future.jpg')               // Note 1
+//        .on('error', function (err) {                                   // Note 2
+//          throw err;
+//        })
+//        .on('response', function (response) {                           // Note 3
+//          console.log('Response Status Code: ', response.statusCode);
+//        })
+//        .pipe(fs.createWriteStream('./future.jpeg'));               // Note 4
+//        console.log('Download complete.');
 
 // // Notes:
 // // 1. `request.get` is equivalent to `request()`
