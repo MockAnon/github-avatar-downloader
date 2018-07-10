@@ -1,7 +1,3 @@
-// node download_avatars.js https://avatars0.githubusercontent.com/u/1615?v=4 avatars/kvirani.jpg
-
-// User-Agent: curl/7.47.0
-
 var secrets = require('./secrets.js');
 
 var request = require('request');
@@ -10,24 +6,17 @@ var fs = require('fs');
 
 var args = process.argv.slice(2);
 
-var sourceURL = args[0] || "https://avatars0.githubusercontent.com/u/1615?v=4";
-var filePathing = args[1] || "avatars/kvirani.jpg";
+var theOwner = args[0];
 
+var filePathing = args[1];
 
+if(args[1] == null){
+  console.log("error, both feilds need to have inputs. Please input jeresig nodelist. OR enter jquery jquery");
+  exit();
+}
 
-
-// downloadImageByURL(sourceURL, filePathing);
-
-// console.log("sourceURL" + sourceURL);
-// console.log("filePathing" + filePathing);
-
-// console.log('NOTE!!!!!!:', args);
-
-// console.log("secrets",secrets);
-
+console.log('NOTE!!!!!!:', args);
 console.log('Welcome to the GitHub Avatar Downloader!');
-
-
 
 function getRepoContributors(repoOwner, repoName, cb) {
   var options = {
@@ -36,8 +25,7 @@ function getRepoContributors(repoOwner, repoName, cb) {
       'User-Agent': 'request',
       'Authorization': secrets.GITHUB_TOKEN
     }
-    // request(options);
-    };
+  };
 
   request(options, function(err, res, body) {
 
@@ -45,76 +33,42 @@ function getRepoContributors(repoOwner, repoName, cb) {
       return cb(err, null);
     } else {
       var info = JSON.parse(body);
+      console.log(info);
       cb(null, info)
+
     }
   });
 }
 
-// function repoItemPrinter(err, data) {
-//   if (err) {
-//     console.log('Error', err)
-//   } else {
-//     console.log('DATA', data)
-//   }
-// }
-
-getRepoContributors("jquery", "jquery", repoItemPrinter)
-
-getRepoContributors("jquery", "jquery", function(err, result) {
-getRepoContributors("jquery", "jquery", function(err, result) {
+getRepoContributors(theOwner, filePathing, function(err, result) {
   if(err){
     console.log("Errors:", err);
-  } else if(result.message) {
-    console.log(result.message)
   } else {
     result.forEach(function(item) {
       console.log(item);
       let pathing = "avatars/" + item.login + ".jpeg";
-      // let pathing = filePathing;
-      let item_url = item.url;
-      // let item_url = sourceURL;
-
+      let item_url = item.avatar_url;
       downloadImageByURL(item_url, pathing);
-      // invokde downloadImageUrl()
-
     })
   }
 });
 
-
 function downloadImageByURL(url, filePath) {
-
-  // console.log("url:", url);
   console.log("filePath:", filePath);
-
-  // var request = require('request');
-
-
   console.log('Downloading image...');
 
-  request.get(url)               // Note 1
-       .on('error', function (err) {                                   // Note 2
+  request.get(url)
+       .on('error', function (err) {
          throw err;
        })
-       .on('response', function (response) {                           // Note 3
+       .on('response', function (response) {
          console.log('Response Status Code: ', response.statusCode);
        })
-       .pipe(fs.createWriteStream(filePath));               // Note 4
+       .pipe(fs.createWriteStream(filePath));
        console.log('Download complete.');
   // ...
 }
 
-
+// User-Agent: curl/7.47.0
 //https://avatars0.githubusercontent.com/u/1615?v=4
-
 // downloadImageByURL(avatar_url, "avatars/kvirani.jpg");
-
-
-
-
-// // Notes:
-// // 1. `request.get` is equivalent to `request()`
-// // 2. `request.on('error', callback)` handles any error
-// // 3. `request.on('response, callback)` handles the response
-// // 4. What is happening here?
-
