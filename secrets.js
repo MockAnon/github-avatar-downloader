@@ -1,3 +1,3 @@
 module.exports = {
-  GITHUB_TOKEN: "token 4ad6efb9befd47ccde00251b18be6bdfdf012ef6"
+  GITHUB_TOKEN: "token 405332b741208394adc976458f93ae33e2ff4f39"
 };

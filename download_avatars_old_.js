@@ -8,8 +8,31 @@ var fs = require('fs');
 
 var args = process.argv.slice(2);
 
-var sourceURL = args[0] || 504;
-var filePathing = args[1] || "avatars/kvirani.jpg";
+
+
+// var theOwner = args[0] || "jquery";
+// var filePathing = args[1] || "jquery";
+
+var theOwner = args[0];
+var filePathing = args[1];
+
+
+
+
+
+
+// function end(){
+//   console.log("error, both feilds need to have inputs. Please input jeresig nodelist");
+//   break;
+// }
+
+if(args[1] == null){
+  console.log("error, both feilds need to have inputs. Please input jeresig nodelist. OR enter jquery jquery");
+  exit();
+
+
+}
+
 
 console.log('NOTE!!!!!!:', args);
 
@@ -35,7 +58,9 @@ function getRepoContributors(repoOwner, repoName, cb) {
       return cb(err, null);
     } else {
       var info = JSON.parse(body);
+      console.log(info);
       cb(null, info)
+
     }
   });
 }
@@ -50,17 +75,17 @@ function getRepoContributors(repoOwner, repoName, cb) {
 
 // getRepoContributors("jquery", "jquery", repoItemPrinter)
 
-
-getRepoContributors("jquery", "jquery", function(err, result) {
+// getRepoContributors("jquery", "jquery", function(err, result) {
+getRepoContributors(theOwner, filePathing, function(err, result) {
   if(err){
     console.log("Errors:", err);
-  } else if(result.message) {
-    console.log(result.message)
+  // } else if(result.message) {
+  //   console.log(result.message)
   } else {
     result.forEach(function(item) {
       console.log(item);
       let pathing = "avatars/" + item.login + ".jpeg";
-      let item_url = item.url;
+      let item_url = item.avatar_url;
       // Create the url
       // Create the filepage
       downloadImageByURL(item_url, pathing);

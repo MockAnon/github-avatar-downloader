@@ -16,7 +16,7 @@ var filePathing = args[1] || "avatars/kvirani.jpg";
 
 
 
-downloadImageByURL(sourceURL, filePathing);
+// downloadImageByURL(sourceURL, filePathing);
 
 // console.log("sourceURL" + sourceURL);
 // console.log("filePathing" + filePathing);
@@ -58,28 +58,28 @@ function getRepoContributors(repoOwner, repoName, cb) {
 //   }
 // }
 
-// getRepoContributors("jquery", "jquery", repoItemPrinter)
+getRepoContributors("jquery", "jquery", repoItemPrinter)
 
-// getRepoContributors("jquery", "jquery", function(err, result) {
-// getRepoContributors("jquery", "jquery", function(err, result) {
-//   if(err){
-//     console.log("Errors:", err);
-//   } else if(result.message) {
-//     console.log(result.message)
-//   } else {
-//     result.forEach(function(item) {
-//       console.log(item);
-//       // let pathing = "avatars/" + item.login + ".jpeg";
-//       let pathing = filePathing;
-//       // let item_url = item.url;
-//       let item_url = sourceURL;
+getRepoContributors("jquery", "jquery", function(err, result) {
+getRepoContributors("jquery", "jquery", function(err, result) {
+  if(err){
+    console.log("Errors:", err);
+  } else if(result.message) {
+    console.log(result.message)
+  } else {
+    result.forEach(function(item) {
+      console.log(item);
+      let pathing = "avatars/" + item.login + ".jpeg";
+      // let pathing = filePathing;
+      let item_url = item.url;
+      // let item_url = sourceURL;
 
-//       downloadImageByURL(item_url, pathing);
-//       // invokde downloadImageUrl()
+      downloadImageByURL(item_url, pathing);
+      // invokde downloadImageUrl()
 
-//     })
-//   }
-// });
+    })
+  }
+});
 
 
 function downloadImageByURL(url, filePath) {
@@ -103,6 +103,7 @@ function downloadImageByURL(url, filePath) {
        console.log('Download complete.');
   // ...
 }
+
 
 //https://avatars0.githubusercontent.com/u/1615?v=4
 
